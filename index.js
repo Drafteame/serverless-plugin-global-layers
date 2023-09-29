@@ -27,10 +27,15 @@ export default class GlobalLayers {
    */
   async addToAll() {
     const { service } = this.serverless;
-    const { layers, excludedFuncs } = service.custom.globalLayers || {
-      layers: [],
-      excludedFuncs: [],
-    };
+    let { layers, excludedFuncs } = service.custom.globalLayers;
+
+    if (!layers) {
+      layers = [];
+    }
+
+    if (!excludedFuncs) {
+      excludedFuncs = [];
+    }
 
     if (layers.length == 0) {
       this.logInfo("No global layers are configured");
@@ -70,10 +75,15 @@ export default class GlobalLayers {
     }
 
     const { service } = this.serverless;
-    const { layers, excludedFuncs } = service.custom.globalLayers || {
-      layers: [],
-      excludedFuncs: [],
-    };
+    let { layers, excludedFuncs } = service.custom.globalLayers;
+
+    if (!layers) {
+      layers = [];
+    }
+
+    if (!excludedFuncs) {
+      excludedFuncs = [];
+    }
 
     if (layers.length == 0) {
       this.logInfo("No global layers are configured");
