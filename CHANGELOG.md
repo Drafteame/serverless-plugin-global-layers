@@ -1,3 +1,8 @@
+## v0.2.2 (2023-09-29)
+
+
+- fix: some field is not present and gets undefined error (#6)
+
 ## v0.2.1 (2023-09-29)
 
 
