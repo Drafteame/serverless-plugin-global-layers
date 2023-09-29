@@ -1,7 +1,7 @@
 {
   "name": "serverless-plugin-global-layers",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple serverless plugin that allows you to define a list of ARN layers that should be added to all your defined lambdas",
   "main": "index.js",
   "repository": {
