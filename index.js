@@ -32,6 +32,11 @@ export default class GlobalLayers {
       excludedFuncs: [],
     };
 
+    if (layers.length == 0) {
+      this.logInfo("No global layers are configured");
+      return;
+    }
+
     service.getAllFunctions().forEach((name) => {
       if (excludedFuncs.includes(name)) {
         this.logInfo(
@@ -69,6 +74,11 @@ export default class GlobalLayers {
       layers: [],
       excludedFuncs: [],
     };
+
+    if (layers.length == 0) {
+      this.logInfo("No global layers are configured");
+      return;
+    }
 
     if (excludedFuncs.inlcudes(name)) {
       this.logInfo(
