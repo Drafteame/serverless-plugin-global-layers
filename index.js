@@ -27,15 +27,9 @@ export default class GlobalLayers {
    */
   async addToAll() {
     const { service } = this.serverless;
-    let { layers, excludedFuncs } = service.custom.globalLayers;
 
-    if (!layers) {
-      layers = [];
-    }
-
-    if (!excludedFuncs) {
-      excludedFuncs = [];
-    }
+    let layers = this.getLayersFromConfig();
+    let excludedFuncs = this.getExcludedFuncsFromConfig();
 
     if (layers.length == 0) {
       this.logInfo("No global layers are configured");
@@ -62,6 +56,29 @@ export default class GlobalLayers {
     });
   }
 
+  getLayersFromConfig() {
+    const { service } = this.serverless;
+
+    if (!service.custom.globalLayers || !service.custom.globalLayers.layers) {
+      return [];
+    }
+
+    return service.custom.globalLayers.layers;
+  }
+
+  getExcludedFuncsFromConfig() {
+    const { service } = this.serverless;
+
+    if (
+      !service.custom.globalLayers ||
+      !service.custom.globalLayers.excludedFuncs
+    ) {
+      return [];
+    }
+
+    return service.custom.globalLayers.excludedFuncs;
+  }
+
   /**
    * Apply global layers configuration over single provided function.
    *
@@ -75,22 +92,16 @@ export default class GlobalLayers {
     }
 
     const { service } = this.serverless;
-    let { layers, excludedFuncs } = service.custom.globalLayers;
 
-    if (!layers) {
-      layers = [];
-    }
-
-    if (!excludedFuncs) {
-      excludedFuncs = [];
-    }
+    let layers = this.getLayersFromConfig();
+    let excludedFuncs = this.getExcludedFuncsFromConfig();
 
     if (layers.length == 0) {
       this.logInfo("No global layers are configured");
       return;
     }
 
-    if (excludedFuncs.inlcudes(name)) {
+    if (excludedFuncs.includes(name)) {
       this.logInfo(
         `Function ${chalk.green(name)} is excluded from global layers`,
       );
