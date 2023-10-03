@@ -1,3 +1,8 @@
+## v0.2.3 (2023-10-03)
+
+
+- fix: not defined configuration (#7)
+
 ## v0.2.2 (2023-09-29)
 
 
