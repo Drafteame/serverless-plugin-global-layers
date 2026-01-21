@@ -1,3 +1,8 @@
+## v0.2.5 (2026-01-21)
+
+
+- chore: implements trusted publisher and bump node 18 -> 24 (#9)
+
 ## v0.2.4 (2024-08-19)
 
 
