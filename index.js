@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import chalk from 'chalk';
 
 /**
  * GlobalLayers is a plugin that helps to manage global lambda layers in order to not repeat your
@@ -6,17 +6,17 @@ import chalk from "chalk";
  */
 export default class GlobalLayers {
   constructor(serverless, options, { log }) {
-    this.logPrefix = "GlobalLayers:";
+    this.logPrefix = 'GlobalLayers:';
 
     this.serverless = serverless;
     this.options = options || {};
     this.log = log;
 
-    this.provider = this.serverless.getProvider("aws");
+    this.provider = this.serverless.getProvider('aws');
 
     this.hooks = {
-      "before:package:initialize": this.addToAll.bind(this),
-      "before:deploy:function:initialize": this.addToFunction.bind(this),
+      'before:package:initialize': this.addToAll.bind(this),
+      'before:deploy:function:initialize': this.addToFunction.bind(this),
     };
   }
 
@@ -28,19 +28,17 @@ export default class GlobalLayers {
   async addToAll() {
     const { service } = this.serverless;
 
-    let layers = this.getLayersFromConfig();
-    let excludedFuncs = this.getExcludedFuncsFromConfig();
+    const layers = this.getLayersFromConfig();
+    const excludedFuncs = this.getExcludedFuncsFromConfig();
 
-    if (layers.length == 0) {
-      this.logInfo("No global layers are configured");
+    if (layers.length === 0) {
+      this.logInfo('No global layers are configured');
       return;
     }
 
     service.getAllFunctions().forEach((name) => {
       if (excludedFuncs.includes(name)) {
-        this.logInfo(
-          `Function ${chalk.green(name)} is excluded from global layers`,
-        );
+        this.logInfo(`Function ${chalk.green(name)} is excluded from global layers`);
         return;
       }
 
@@ -69,10 +67,7 @@ export default class GlobalLayers {
   getExcludedFuncsFromConfig() {
     const { service } = this.serverless;
 
-    if (
-      !service.custom.globalLayers ||
-      !service.custom.globalLayers.excludedFuncs
-    ) {
+    if (!service.custom.globalLayers || !service.custom.globalLayers.excludedFuncs) {
       return [];
     }
 
@@ -93,18 +88,16 @@ export default class GlobalLayers {
 
     const { service } = this.serverless;
 
-    let layers = this.getLayersFromConfig();
-    let excludedFuncs = this.getExcludedFuncsFromConfig();
+    const layers = this.getLayersFromConfig();
+    const excludedFuncs = this.getExcludedFuncsFromConfig();
 
-    if (layers.length == 0) {
-      this.logInfo("No global layers are configured");
+    if (layers.length === 0) {
+      this.logInfo('No global layers are configured');
       return;
     }
 
     if (excludedFuncs.includes(name)) {
-      this.logInfo(
-        `Function ${chalk.green(name)} is excluded from global layers`,
-      );
+      this.logInfo(`Function ${chalk.green(name)} is excluded from global layers`);
       return;
     }
 
